@@ -8,6 +8,7 @@
 
 class UInputComponent;
 class UItemHandleComponent;
+class UCookerHandler;
 
 UCLASS(config=Game)
 class AUETestCharacter : public ACharacter
@@ -19,10 +20,13 @@ class AUETestCharacter : public ACharacter
 	class UCameraComponent* FirstPersonCameraComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
-	UItemHandleComponent* ItemHandle;
+	UItemHandleComponent* ItemHandler;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Item, meta = (AllowPrivateAccess = "true"))
 	UArrowComponent* ItemLocation;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Cooker, meta = (AllowPrivateAccess = "true"))
+	UCookerHandler* CookerHandler;
 
 public:
 	AUETestCharacter();

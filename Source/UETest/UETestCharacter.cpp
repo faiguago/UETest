@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "Components/ItemHandleComponent.h"
+#include "Components/CookerHandler.h"
 #include "Components/ArrowComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
@@ -33,8 +34,11 @@ AUETestCharacter::AUETestCharacter()
 	FirstPersonCameraComponent->SetRelativeLocation(FVector(-39.56f, 1.75f, 64.f)); // Position the camera
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
-	// Create an ItemHandle
-	ItemHandle = CreateDefaultSubobject<UItemHandleComponent>(TEXT("ItemHandle"));
+	// Create an ItemHandleComponent
+	ItemHandler = CreateDefaultSubobject<UItemHandleComponent>(TEXT("ItemHandler"));
+
+	// Create a CookerHandlerComponent
+	CookerHandler = CreateDefaultSubobject<UCookerHandler>(TEXT("CookerHandler"));
 
 	// Create an ArrowComponent
 	ItemLocation = CreateDefaultSubobject<UArrowComponent>(TEXT("ItemLocation"));
@@ -46,7 +50,8 @@ void AUETestCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
-	ItemHandle->Init(FirstPersonCameraComponent, ItemLocation);
+	CookerHandler->Init(FirstPersonCameraComponent);
+	ItemHandler->Init(FirstPersonCameraComponent, ItemLocation);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -80,12 +85,13 @@ void AUETestCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 
 void AUETestCharacter::OnGrab()
 {
-	ItemHandle->GrabItem();
+	CookerHandler->Cook();
+	ItemHandler->GrabItem();
 }
 
 void AUETestCharacter::Ungrab()
 {
-	ItemHandle->UngrabItem();
+	ItemHandler->UngrabItem();
 }
 
 void AUETestCharacter::MoveForward(float Value)

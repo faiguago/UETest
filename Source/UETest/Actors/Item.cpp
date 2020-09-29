@@ -32,6 +32,7 @@ void AItem::Tick(float DeltaTime)
 
 void AItem::Init(const FItemData& InItemData)
 {
+	ItemType = InItemData.ItemType;
 	bIsGrabbable = InItemData.bIsGrabbable;
 	StaticMeshComp->SetStaticMesh(InItemData.StaticMesh);
 	StaticMeshComp->SetWorldScale3D(InItemData.WorldScale);

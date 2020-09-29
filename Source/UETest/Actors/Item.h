@@ -35,9 +35,16 @@ public:
 		return bIsGrabbable;
 	}
 
+	EItemType GetItemType()
+	{
+		return ItemType;
+	}
+
 private:
 
 	bool bIsGrabbable;
+
+	EItemType ItemType;
 
 	UPROPERTY()
 	UStaticMeshComponent* StaticMeshComp;
